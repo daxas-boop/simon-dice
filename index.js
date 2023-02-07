@@ -1,5 +1,11 @@
 let eleccionesMaquina = [];
 let eleccionesUsuario = [];
+const sonidos = [
+  new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3'),
+  new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3'),
+  new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3'),
+  new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3'),
+];
 
 function manejarRonda() {
   eleccionesUsuario = [];
@@ -47,9 +53,10 @@ function bloquearInputUsuario() {
 
 function desbloquearInputUsuario() {
   const botonesSimonDice = document.querySelectorAll('.boton');
-  botonesSimonDice.forEach((botonSeleccionado) => {
+  botonesSimonDice.forEach((botonSeleccionado, i) => {
     botonSeleccionado.onclick = () => {
       manejarInputUsuario(botonSeleccionado);
+      sonidos[i].play();
     };
     botonSeleccionado.role = 'button';
   });
@@ -61,6 +68,7 @@ function mostrarEleccionesMaquina(elecciones) {
     setTimeout(() => {
       const botonSeleccionado = document.querySelector('#opcion-' + eleccion);
       resaltarElemento(botonSeleccionado);
+      sonidos[eleccion - 1].play();
     }, TIEMPO_SELECCION_MS);
   });
 }
