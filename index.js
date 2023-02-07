@@ -7,6 +7,52 @@ function manejarRonda() {
   const opcionAleatoria = Math.floor(Math.random() * 4) + 1;
   eleccionesMaquina.push(opcionAleatoria);
   mostrarEleccionesMaquina(eleccionesMaquina);
+
+  const TIEMPO_TURNO_USUARIO = 1000 * (eleccionesMaquina.length + 1);
+  setTimeout(() => {
+    cambiarEstadoJuego('Tu turno.');
+    desbloquearInputUsuario();
+  }, TIEMPO_TURNO_USUARIO);
+}
+
+function manejarInputUsuario(boton) {
+  const opcionSeleccionada = boton.id.split('-')[1];
+  eleccionesUsuario.push(Number(opcionSeleccionada));
+  resaltarElemento(boton);
+
+  const esInputCorrecto = eleccionesUsuario.at(-1) === eleccionesMaquina.at(eleccionesUsuario.length - 1);
+  const esUltimoInput = eleccionesUsuario.length === eleccionesMaquina.length;
+
+  if (!esInputCorrecto) {
+    bloquearInputUsuario();
+    habilitarBotonEmpezar();
+    cambiarEstadoJuego('Perdiste.');
+    eleccionesUsuario = [];
+    eleccionesMaquina = [];
+  } else if (esInputCorrecto && esUltimoInput) {
+    bloquearInputUsuario();
+    setTimeout(() => {
+      manejarRonda();
+    }, 500);
+  }
+}
+
+function bloquearInputUsuario() {
+  const botonesSimonDice = document.querySelectorAll('.boton');
+  botonesSimonDice.forEach((boton) => {
+    boton.onclick = () => {};
+    boton.role = '';
+  });
+}
+
+function desbloquearInputUsuario() {
+  const botonesSimonDice = document.querySelectorAll('.boton');
+  botonesSimonDice.forEach((botonSeleccionado) => {
+    botonSeleccionado.onclick = () => {
+      manejarInputUsuario(botonSeleccionado);
+    };
+    botonSeleccionado.role = 'button';
+  });
 }
 
 function mostrarEleccionesMaquina(elecciones) {
