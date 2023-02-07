@@ -1,5 +1,6 @@
 let eleccionesMaquina = [];
 let eleccionesUsuario = [];
+let puntaje = 0;
 const sonidos = [
   new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3'),
   new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3'),
@@ -32,12 +33,14 @@ function manejarInputUsuario(boton) {
   if (!esInputCorrecto) {
     bloquearInputUsuario();
     habilitarBotonEmpezar();
-    cambiarTextoEstado('Perdiste.');
+    cambiarTextoEstado('Perdiste. Tu puntaje: ' + puntaje);
     cambiarFondoEstado('perdedor');
     eleccionesUsuario = [];
     eleccionesMaquina = [];
+    puntaje = 0;
   } else if (esInputCorrecto && esUltimoInput) {
     bloquearInputUsuario();
+    puntaje++;
     setTimeout(() => {
       manejarRonda();
     }, 500);
