@@ -9,14 +9,14 @@ const sonidos = [
 
 function manejarRonda() {
   eleccionesUsuario = [];
-  cambiarEstadoJuego('Turno de la maquina.');
+  cambiarTextoEstado('Turno de la maquina.');
   const opcionAleatoria = Math.floor(Math.random() * 4) + 1;
   eleccionesMaquina.push(opcionAleatoria);
   mostrarEleccionesMaquina(eleccionesMaquina);
 
   const TIEMPO_TURNO_USUARIO = 1000 * (eleccionesMaquina.length + 1);
   setTimeout(() => {
-    cambiarEstadoJuego('Tu turno.');
+    cambiarTextoEstado('Tu turno.');
     desbloquearInputUsuario();
   }, TIEMPO_TURNO_USUARIO);
 }
@@ -32,7 +32,8 @@ function manejarInputUsuario(boton) {
   if (!esInputCorrecto) {
     bloquearInputUsuario();
     habilitarBotonEmpezar();
-    cambiarEstadoJuego('Perdiste.');
+    cambiarTextoEstado('Perdiste.');
+    cambiarFondoEstado('perdedor');
     eleccionesUsuario = [];
     eleccionesMaquina = [];
   } else if (esInputCorrecto && esUltimoInput) {
@@ -40,6 +41,17 @@ function manejarInputUsuario(boton) {
     setTimeout(() => {
       manejarRonda();
     }, 500);
+  }
+}
+
+function cambiarFondoEstado(estado) {
+  const fondoEstado = document.querySelector('#fondo-estado');
+  if (estado === 'perdedor') {
+    fondoEstado.classList.remove('bg-primary-subtle');
+    fondoEstado.classList.add('bg-danger');
+  } else if (estado === 'normal') {
+    fondoEstado.classList.remove('bg-danger');
+    fondoEstado.classList.add('bg-primary-subtle');
   }
 }
 
@@ -80,7 +92,7 @@ function resaltarElemento(elemento) {
   }, 200);
 }
 
-function cambiarEstadoJuego(texto) {
+function cambiarTextoEstado(texto) {
   const estado = document.querySelector('#estado');
   estado.textContent = texto;
 }
@@ -96,6 +108,7 @@ function habilitarBotonEmpezar() {
   botonEmpezar.disabled = false;
   botonEmpezar.onclick = () => {
     manejarRonda();
+    cambiarFondoEstado('normal');
     bloquearBotonEmpezar();
   };
 }
