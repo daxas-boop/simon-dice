@@ -35,6 +35,9 @@ function manejarInputUsuario(boton) {
     habilitarBotonEmpezar();
     cambiarTextoEstado('Perdiste. Tu puntaje: ' + puntaje);
     cambiarFondoEstado('perdedor');
+    const botonEmpezar = document.querySelector('#empezar-juego');
+    botonEmpezar.style.opacity = 100;
+    botonEmpezar.textContent = 'Reintentalo';
     eleccionesUsuario = [];
     eleccionesMaquina = [];
     puntaje = 0;
@@ -103,6 +106,7 @@ function cambiarTextoEstado(texto) {
 function bloquearBotonEmpezar() {
   const botonEmpezar = document.querySelector('#empezar-juego');
   botonEmpezar.disabled = true;
+  botonEmpezar.style.opacity = 0;
   botonEmpezar.onclick = () => {};
 }
 
