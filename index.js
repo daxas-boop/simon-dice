@@ -10,14 +10,14 @@ const sonidos = [
 
 function manejarRonda() {
   eleccionesUsuario = [];
-  cambiarTextoEstado('Turno de la maquina.');
+  cambiarEstado('Turno de la maquina.');
   const opcionAleatoria = Math.floor(Math.random() * 4) + 1;
   eleccionesMaquina.push(opcionAleatoria);
   mostrarEleccionesMaquina(eleccionesMaquina);
 
   const TIEMPO_TURNO_USUARIO = 1000 * (eleccionesMaquina.length + 1);
   setTimeout(() => {
-    cambiarTextoEstado('Tu turno.');
+    cambiarEstado('Tu turno.');
     desbloquearInputUsuario();
   }, TIEMPO_TURNO_USUARIO);
 }
@@ -33,8 +33,7 @@ function manejarInputUsuario(boton) {
   if (!esInputCorrecto) {
     bloquearInputUsuario();
     habilitarBotonEmpezar();
-    cambiarTextoEstado('Perdiste. Tu puntaje: ' + puntaje);
-    cambiarFondoEstado('perdedor');
+    cambiarEstado('Perdiste. Tu puntaje: ' + puntaje, true);
     const botonEmpezar = document.querySelector('#empezar-juego');
     botonEmpezar.style.opacity = 100;
     botonEmpezar.textContent = 'Reintentalo';
@@ -47,17 +46,6 @@ function manejarInputUsuario(boton) {
     setTimeout(() => {
       manejarRonda();
     }, 500);
-  }
-}
-
-function cambiarFondoEstado(estado) {
-  const fondoEstado = document.querySelector('#fondo-estado');
-  if (estado === 'perdedor') {
-    fondoEstado.classList.remove('bg-primary-subtle');
-    fondoEstado.classList.add('bg-danger');
-  } else if (estado === 'normal') {
-    fondoEstado.classList.remove('bg-danger');
-    fondoEstado.classList.add('bg-primary-subtle');
   }
 }
 
@@ -99,9 +87,17 @@ function resaltarElemento(elemento) {
   }, 200);
 }
 
-function cambiarTextoEstado(texto) {
+function cambiarEstado(texto, error = false) {
   const estado = document.querySelector('#estado');
+  const fondoEstado = document.querySelector('#fondo-estado');
   estado.textContent = texto;
+  if (error) {
+    fondoEstado.classList.remove('bg-primary-subtle');
+    fondoEstado.classList.add('bg-danger');
+  } else {
+    fondoEstado.classList.remove('bg-danger');
+    fondoEstado.classList.add('bg-primary-subtle');
+  }
 }
 
 function bloquearBotonEmpezar() {
@@ -116,7 +112,6 @@ function habilitarBotonEmpezar() {
   botonEmpezar.disabled = false;
   botonEmpezar.onclick = () => {
     manejarRonda();
-    cambiarFondoEstado('normal');
     bloquearBotonEmpezar();
   };
 }
