@@ -1,0 +1,38 @@
+.boton {
+  border-radius: 15px;
+  transition: ease-in 200ms;
+  width: 145px;
+  height: 145px;
+  margin: 5px;
+  opacity: 20%;
+}
+
+@media screen and (min-width: 768px) {
+  .boton {
+    width: 250px;
+    height: 250px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .boton {
+    width: 350px;
+    height: 350px;
+  }
+}
+
+#opcion-1 {
+  background-color: red;
+}
+
+#opcion-2 {
+  background-color: green;
+}
+
+#opcion-3 {
+  background-color: yellow;
+}
+
+#opcion-4 {
+  background-color: blue;
+}

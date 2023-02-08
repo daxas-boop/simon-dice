@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Simon Dice</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+  </head>
+  <body>
+    <div class="container d-flex flex-column min-vh-100">
+      <header class="text-center">
+        <blockquote class="blockquote">
+          <h1>Simon Dice</h1>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+          <cite>r/argentina programa</cite>
+        </figcaption>
+      </header>
+      <main role="main">
+        <div class="justify-content-center text-center">
+          <div id="fondo-estado" class="p-3 bg-primary-subtle border rounded-3">
+            <p id="estado" class="m-0 lead">Click en el boton para empezar el juego.</p>
+            <p id="ronda" class="m-0">Ronda Nro:</p>
+            <button id="empezar-juego" type="button" class="btn btn-primary mt-2">Empezar</button>
+          </div>
+        </div>
+        <div class="my-3">
+          <div id="tablero" class="row justify-content-center">
+            <div id="opcion-1" class="col-6 boton"></div>
+            <div id="opcion-2" class="col-6 boton"></div>
+            <div class="w-100"></div>
+            <div id="opcion-3" class="col-6 boton"></div>
+            <div id="opcion-4" class="col-6 boton"></div>
+          </div>
+        </div>
+      </main>
+      <footer class="mt-auto">
+        <h6 class="text-center">Creado por <a href="https://github.com/daxas-boop" target="_blank">Matias Z.</a></h6>
+      </footer>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
