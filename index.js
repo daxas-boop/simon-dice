@@ -118,8 +118,4 @@ function habilitarBotonEmpezar() {
   };
 }
 
-function inicializar() {
-  habilitarBotonEmpezar();
-}
-
-inicializar();
+habilitarBotonEmpezar();
