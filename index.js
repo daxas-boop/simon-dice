@@ -40,9 +40,7 @@ function manejarInputUsuario(boton) {
     bloquearInputUsuario();
     habilitarBotonEmpezar();
     cambiarEstado('Perdiste.', true);
-    const botonEmpezar = document.querySelector('#empezar-juego');
-    botonEmpezar.style.opacity = 100;
-    botonEmpezar.textContent = 'Reintentalo';
+    document.querySelector('#empezar-juego').textContent = 'Reintentalo';
     eleccionesUsuario = [];
     eleccionesMaquina = [];
     ronda = 0;
@@ -113,6 +111,7 @@ function bloquearBotonEmpezar() {
 function habilitarBotonEmpezar() {
   const botonEmpezar = document.querySelector('#empezar-juego');
   botonEmpezar.disabled = false;
+  botonEmpezar.style.opacity = 100;
   botonEmpezar.onclick = () => {
     manejarRonda();
     bloquearBotonEmpezar();
