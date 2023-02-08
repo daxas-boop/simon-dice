@@ -74,6 +74,7 @@ function desbloquearInputUsuario() {
   botonesSimonDice.forEach((botonSeleccionado, i) => {
     botonSeleccionado.onclick = () => {
       manejarInputUsuario(botonSeleccionado);
+      sonidos[i].currentTime = 0;
       sonidos[i].play();
     };
     botonSeleccionado.role = 'button';
