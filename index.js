@@ -1,6 +1,6 @@
 let eleccionesMaquina = [];
 let eleccionesUsuario = [];
-let puntaje = 0;
+let ronda = 0;
 const sonidos = [
   new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3'),
   new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3'),
@@ -10,6 +10,8 @@ const sonidos = [
 
 function manejarRonda() {
   eleccionesUsuario = [];
+  ronda++;
+  actualizarNumeroRonda(ronda);
   cambiarEstado('Turno de la maquina.');
   const opcionAleatoria = Math.floor(Math.random() * 4) + 1;
   eleccionesMaquina.push(opcionAleatoria);
@@ -20,6 +22,10 @@ function manejarRonda() {
     cambiarEstado('Tu turno.');
     desbloquearInputUsuario();
   }, TIEMPO_TURNO_USUARIO);
+}
+
+function actualizarNumeroRonda(rondaNro) {
+  document.querySelector('#ronda').textContent = 'Ronda Nro: ' + rondaNro;
 }
 
 function manejarInputUsuario(boton) {
@@ -33,19 +39,16 @@ function manejarInputUsuario(boton) {
   if (!esInputCorrecto) {
     bloquearInputUsuario();
     habilitarBotonEmpezar();
-    cambiarEstado('Perdiste. Tu puntaje: ' + puntaje, true);
+    cambiarEstado('Perdiste.', true);
     const botonEmpezar = document.querySelector('#empezar-juego');
     botonEmpezar.style.opacity = 100;
     botonEmpezar.textContent = 'Reintentalo';
     eleccionesUsuario = [];
     eleccionesMaquina = [];
-    puntaje = 0;
+    ronda = 0;
   } else if (esInputCorrecto && esUltimoInput) {
     bloquearInputUsuario();
-    puntaje++;
-    setTimeout(() => {
-      manejarRonda();
-    }, 500);
+    setTimeout(manejarRonda, 500);
   }
 }
 
